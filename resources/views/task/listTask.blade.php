@@ -3,42 +3,45 @@
 
 <div class="container">
 
-    <a href="{{url('users')}}">Rgeresar</a>
-    <a href="{{url('task.taskCreate')}}">crear</a>
+    <a class="btn btn-secondary" href="{{url('users')}}">Rgeresar</a>
+    <a class="btn btn-success" href="{{url('task.taskCreate')}}">crear</a>
     <h1>Welcome {{$user->name}} these are your tasks</h1>
 
     <div class="row">
         <div class="col">
             <form action="{{route('task.store')}}" method="post">
                 @csrf
-                <input type="hidden" name="user_id" value="{{ $user->id}}">
-                <label for="">Task name</label>
+                <input class="form-control" type="hidden" name="user_id" value="{{ $user->id}}">
+                <label for="">Task name:</label>
                 @error('task')
                     <span class="alert">{{ $message }}</span>
                 @enderror
-                <input type="text">
-                <label for="">Info</label>
+                <input class="form-control" type="text">
+                <label for="">Info:</label>
                 @error('info')
                     <span class="alert">{{ $message }}</span>
                 @enderror
-                <input type="text">
-                <label for="">Start date</label>
+                <input class="form-control" type="text">
+                <label for="">Start date:</label>
                 @error('start_date')
                     <span class="alert">{{ $message }}</span>
                 @enderror
-                <input type="text">
-                <label for="">Close date</label>
+                <input class="form-control" type="text">
+                <label for="">Close date:</label>
                 @error('end_date')
                     <span class="alert">{{ $message }}</span>
                 @enderror
-                <input type="text">
+                <input class="form-control" type="text">
 
-               <button>Guardar</button>
+                <br/>
+                <div class="d-grid gap-2">
+               <button class="btn btn-success">Guardar</button>
+                </div>
             </form>
         </div>
 
         <div class="col">    
-            <table>
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Number</th>
@@ -58,8 +61,10 @@
                             <td>{{$task->state}}</td>
                             <td>{{$task->date_start}}</td>
                             <td>{{$task->date_end}}</td>
-                            <td>
-                                <button>Edit</button>
+                            <td class="d-inline-flex">
+                                <button class="btn btn-primary me-1">Edit</button>
+                                <br/>
+                                <button class="btn btn-danger ms-1">Delete</button>
                             </td>
                         </tr>
                         @endforeach

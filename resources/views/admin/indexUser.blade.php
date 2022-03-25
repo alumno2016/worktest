@@ -3,7 +3,7 @@
 
 <div class="container">
 
-    <a href="{{url('users/create')}}">Crear usuario</a>
+    <a class="btn btn-success" href="{{url('users/create')}}">Create user</a>
 
 
         @if(Session::has('message'))
@@ -11,7 +11,7 @@
         @endif
 
 
-    <table class="">
+    <table class="table table-hover">
         <thead class="">
             <tr>
                 <th></th>
@@ -27,18 +27,18 @@
         <tbody>
            @foreach($data as $datas)
             <tr>
-                <td><a href="{{url('/users/'.$datas->id. '/edit')}}">Edit</a></td>
+                <td><a class="btn btn-primary" href="{{url('/users/'.$datas->id. '/edit')}}">Edit</a></td>
                 <td>{{$datas->user}}</td>
                 <td>{{$datas->name}}</td>
                 <td>{{$datas->email}}</td>
                 <td>{{$datas->phone}}</td>
                 <td>{{$datas->address}}</td>
-                <td><a href="/task/{{$datas->id}}">MyTasks</a></td>
+                <td><a class="btn btn-secondary" href="/task/{{$datas->id}}">MyTasks</a></td>
                 <td>
                     <form action="{{url('/users/'.$datas->id)}}" method="post">
                         @csrf
                         {{method_field('DELETE')}}
-                        <input type="submit" onclick="return confirm('Are you sure')" value="Delete">
+                        <input class="btn btn-danger" type="submit" onclick="return confirm('Are you sure')" value="Delete">
                     </form>
                 </td>
             </tr>

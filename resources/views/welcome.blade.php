@@ -18,6 +18,13 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
+            h1{
+                color: #fff;
+            }
+            span{
+                color: #7653FC;
+                font-size: 40px;
+            }
         </style>
     </head>
     <body class="antialiased">
@@ -45,7 +52,10 @@
                     </svg>
                 </div>
 
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+
+                <h1>Test  <span>By JC</span></h1>
+
+                <!-- <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">
                             <div class="flex items-center">
@@ -125,8 +135,14 @@
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </div>
-                </div>
+                </div> -->
+
+                
             </div>
+
+
+
+            
         </div>
     </body>
 </html>

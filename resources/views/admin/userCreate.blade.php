@@ -6,16 +6,19 @@
 <form action="{{url('/users')}}" method="post" enctype="multipart/form_data">
     @csrf
     @include('form.form', ['type' => 'Create'])
-    <label for="">Password:</label>
+    <label class="form-label" for="">Password:</label>
     @error('password')
     <br/>
     <small>*{{$message}}</small>
     @enderror
-    <input type="password" name="password" minlength="6">
-    
-    <input type="submit" value="Send">
+    <input class="form-control" type="password" name="password" minlength="6">
+    <br/>
+    <div class="d-grid gap-2">
+    <input class="btn btn-success" type="submit" value="Send">
+    </div>
 </form>
-<a href="{{url('users')}}">Retornar</a>
+<br/>
+<a class="btn btn-primary" href="{{url('users')}}">Return</a>
 
 </div>
 @endsection
