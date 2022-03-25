@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,9 @@ Route::get('/', function () {
 
 
 Route::resource('users', UsersController::class)->middleware('auth');
+Route::get('task/{id}', [TaskController::class, 'index']);
+
+
 /* Route::get('users/register', [UsersController::class,'create']); */
 Auth::routes(['reset' => false]);
 

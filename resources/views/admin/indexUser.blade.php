@@ -5,9 +5,11 @@
 
     <a href="{{url('users/create')}}">Crear usuario</a>
 
-    @if(Session::has('message'))
-        {{ Session::get('message')}}
-    @endif
+
+        @if(Session::has('message'))
+            {{ Session::get('message')}}
+        @endif
+
 
     <table class="">
         <thead class="">
@@ -18,20 +20,22 @@
                 <th>Phone</th>
                 <th>Address</th>
                 <th>Email</th>
+                <th>Tasks</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-           @foreach($data as $data)
+           @foreach($data as $datas)
             <tr>
-                <td><a href="{{url('/users/'.$data->id. '/edit')}}">Edit</a></td>
-                <td>{{$data->user}}</td>
-                <td>{{$data->name}}</td>
-                <td>{{$data->email}}</td>
-                <td>{{$data->phone}}</td>
-                <td>{{$data->address}}</td>
+                <td><a href="{{url('/users/'.$datas->id. '/edit')}}">Edit</a></td>
+                <td>{{$datas->user}}</td>
+                <td>{{$datas->name}}</td>
+                <td>{{$datas->email}}</td>
+                <td>{{$datas->phone}}</td>
+                <td>{{$datas->address}}</td>
+                <td><a href="/task/{{$datas->id}}">MyTasks</a></td>
                 <td>
-                    <form action="{{url('/users/'.$data->id)}}" method="post">
+                    <form action="{{url('/users/'.$datas->id)}}" method="post">
                         @csrf
                         {{method_field('DELETE')}}
                         <input type="submit" onclick="return confirm('Are you sure')" value="Delete">
@@ -41,6 +45,8 @@
             @endforeach    
         </tbody>
     </table>
+
+    {{ $data->links() }}
 
 </div>
 @endsection

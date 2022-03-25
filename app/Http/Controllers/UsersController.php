@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Users;
+use App\Models\Task;
 
 class UsersController extends Controller
 {
@@ -14,8 +16,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $data= Users::paginate(5);
-        return view('admin.indexUser')->with('data', $data);
+        $task= Task::all();
+        $data= Users::paginate(2);
+        return view('admin.indexUser', compact(['data', 'task']));//->with('data', $data);
     }
 
     /**
@@ -37,14 +40,21 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         
-        $request = [   
-            'user' => 'unique|required',
-            'name' => 'required',
-            'phone' => 'unique|required',
-            'address'=>'required',
-            'email' => 'unique|required',
-            'password' => 'min:6|required'
+        $rdata = [   
+            'user' => 'required|string',
+            'name' => 'required|string',
+            'phone' => 'required',
+            'address'=>'required|string',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
         ];
+
+        $message=[
+            'required' => 'This :attribute is required'
+        ];
+
+        $this->validate($request, $rdata, $message);
+
         
         $data = request()->except('_token');
 
@@ -84,11 +94,27 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $rdata = [   
+            'user' => 'required|string',
+            'name' => 'required|string',
+            'phone' => 'required',
+            'address'=>'required|string',
+            'email' => 'required|email',
+        ];
+
+        $message=[
+            'required' => 'This :attribute is required'
+        ];
+
+        $this->validate($request, $rdata, $message);
+
         $dataUser = request()->except(['_token', '_method']);
         Users::where('id', "=", $id)->update($dataUser);
 
         $data = Users::findOrFail($id);
-        return view('admin.userEdit', compact('data'));
+        //return view('admin.userEdit', compact('data'));
+        return redirect('users')->with('message', 'User updated:  ' .$id);
 
     }
 

@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 @section('content')
 
@@ -12,7 +11,7 @@
     <br/>
     <small>*{{$message}}</small>
     @enderror
-    <input type="password" name="password">
+    <input type="password" name="password" minlength="6">
     
     <input type="submit" value="Send">
 </form>
