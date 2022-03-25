@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Users;
+use App\Models\User;
 use App\Models\Task;
 
 class UsersController extends Controller
@@ -17,7 +17,7 @@ class UsersController extends Controller
     public function index()
     {
         $task= Task::all();
-        $data= Users::paginate(2);
+        $data= User::paginate(2);
         return view('admin.indexUser', compact(['data', 'task']));//->with('data', $data);
     }
 
@@ -39,6 +39,8 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+
+
         
         $rdata = [   
             'user' => 'required|string',
@@ -47,18 +49,25 @@ class UsersController extends Controller
             'address'=>'required|string',
             'email' => 'required|email',
             'password' => 'required|min:6',
+            //'password' => Hash::make('password'),
         ];
+        
+
+        $request['password'] = bcrypt($request->password);
+ 
+
 
         $message=[
             'required' => 'This :attribute is required'
         ];
+
 
         $this->validate($request, $rdata, $message);
 
         
         $data = request()->except('_token');
 
-        Users::insert($data);
+        User::insert($data);
         return redirect('users')->with('message', 'Register succesfull');
     }
 
@@ -81,7 +90,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $data = Users::findOrFail($id);
+        $data = User::findOrFail($id);
         return view('admin.userEdit', compact('data'));
     }
 
@@ -103,6 +112,8 @@ class UsersController extends Controller
             'email' => 'required|email',
         ];
 
+
+
         $message=[
             'required' => 'This :attribute is required'
         ];
@@ -110,9 +121,9 @@ class UsersController extends Controller
         $this->validate($request, $rdata, $message);
 
         $dataUser = request()->except(['_token', '_method']);
-        Users::where('id', "=", $id)->update($dataUser);
+        User::where('id', "=", $id)->update($dataUser);
 
-        $data = Users::findOrFail($id);
+        $data = User::findOrFail($id);
         //return view('admin.userEdit', compact('data'));
         return redirect('users')->with('message', 'User updated:  ' .$id);
 
@@ -127,7 +138,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
 
-        Users::destroy($id);
+        User::destroy($id);
         return redirect('users')->with('message', 'User delete ' .$id);
     }
 }

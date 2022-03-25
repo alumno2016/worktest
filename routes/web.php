@@ -22,7 +22,9 @@ Route::get('/', function () {
 
 
 Route::resource('users', UsersController::class)->middleware('auth');
-Route::get('task/{id}', [TaskController::class, 'index']);
+Route::get('task/{id}', [TaskController::class, 'index'])->middleware('auth');
+
+Route::resource('task', TaskController::class)->middleware('auth');
 
 
 /* Route::get('users/register', [UsersController::class,'create']); */

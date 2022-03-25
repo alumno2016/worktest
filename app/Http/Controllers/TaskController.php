@@ -17,7 +17,7 @@ class TaskController extends Controller
     public function index($id)
     {
         $user = User::find($id);
-        return view('task.listTask', ['user' => $user]);
+        return view('task.listTask')->with('user' , $user);
     }
 
     /**
@@ -27,7 +27,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('task.createTask');
     }
 
     /**
@@ -38,7 +38,24 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required',
+            'task'=>'required|string',
+            'info'=>'required|string',
+            'date_start' => 'required|date',
+            'date_end' =>'required|date'
+        ]);
+
+        $task = new Task();
+        $task->user_id = $request->user_id;
+        $task->task = $request->task;
+        $task->info = $request->info;
+        $task->date_start = $request->date_start;
+        $task->date_end = $request->date_end;
+        $task->save();
+
+        return redirect()->back();
+
     }
 
     /**
